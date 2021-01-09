@@ -1,0 +1,14 @@
+
+// console.log(location.Lat)
+    // console.log('this is ', location.Long)
+
+    // const fetchData = async () => {
+    //   const response = await axios(
+    //     `http://api.openweathermap.org/data/2.5/weather?lat=${location.Lat}&lon=${location.Long}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+    //   )
+
+    //   console.log(response.data)
+    //   setData(response.data)
+    // }
+
+    // fetchData()
