@@ -12,3 +12,72 @@
     // }
 
     // fetchData()
+
+
+
+
+
+
+
+
+
+
+
+
+    function Side() {
+  const newDate = new Date()
+  const weekday = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat']
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+  const [location, setLocation] = useState({
+    Lat: -0.1257,
+    Long: 51.5085,
+  })
+  const [data, setData] = useState({
+    name: undefined,
+    temp: '..',
+    icon: undefined,
+    description: undefined,
+  })
+  const [date, setDate] = useState({
+    currentDate: newDate.toLocaleDateString(),
+    currentDayName: weekday[newDate.getDay()],
+    currentMonth: months[newDate.getMonth()],
+    currentMonthNumber: newDate.getMonth(),
+  })
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        // console.log(position)
+        setLocation({
+          Lat: position.coords.latitude,
+          Long: position.coords.longitude,
+        })
+      })
+
+      fetch(
+        `http://api.openweathermap.org/data/2.5/weather?lat=${location.Lat}&lon=${location.Long}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+      )
+        .then((resp) => resp.json())
+        .then((weather) =>
+          setData({
+            name: weather.name,
+            temp: weather.main.temp,
+            icon: weather.weather[0].icon,
+            description: weather.weather[0].description,
+          })
+        )
+    }
+  }, [location.Long, location.Lat])

@@ -1,8 +1,12 @@
+@import '../../styles/breakpoints.scss';
 .home {
   position: relative;
-  width: 100vw;
   display: grid;
-  min-height: 100vh;
-  grid-template-columns: 410px 1fr;
+  height: 100vh;
+  grid-template-columns: minmax(350px, 25%) 1fr;
   grid-template-rows: 1fr;
+  @include media('<=desktop') {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
 }

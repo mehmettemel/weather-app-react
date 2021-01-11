@@ -4,10 +4,11 @@
   flex-direction: column;
   z-index: 1;
   background-color: #1e213a;
+  height: 100vh;
 
   .weatherIcon {
     position: absolute;
-    width: 270px;
+    width: 200px;
     top: 20%;
     left: 50%;
     transform: translate(-45%, -50%);
@@ -15,63 +16,71 @@
   }
   .clouds {
     opacity: 0.2;
-    height: 50%;
+    height: 45%;
     background-color: #1e213a;
     background-image: url('../../assets/cloud.svg'),
       url('../../assets/cloud.svg');
     background-position: -10px 100px, 320px 500px;
     background-repeat: repeat-y;
   }
-  &__temperature {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
 
-    h2 {
-      font-size: 7.2rem;
+  &Info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    &__temperature {
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+
+      h2 {
+        font-size: 7.2rem;
+      }
+      span {
+        font-size: 2.2rem;
+        font-weight: 200;
+        transform: translateY(15px);
+        color: rgba(182, 180, 180, 0.609);
+      }
     }
-    span {
+
+    &__description {
+      letter-spacing: 2px;
+      white-space: nowrap;
       font-size: 2.2rem;
-      font-weight: 200;
-      transform: translateY(15px);
-      color: rgba(182, 180, 180, 0.609);
+      margin: 1em auto;
     }
-  }
-
-  &__description {
-    letter-spacing: 5px;
-    white-space: nowrap;
-    font-size: 2.2rem;
-    margin: 1em auto;
-  }
-  &__date {
-    display: flex;
-    align-items: center;
-    margin: 2em auto;
-    color: rgb(182, 179, 179);
-    font-weight: 600;
-    span {
-      font-size: 17px;
-      &:nth-child(2) {
-        margin: 0 15px;
-      }
-      &:nth-child(4) {
-        transform: translateY(4px);
+    &__date {
+      display: flex;
+      align-items: center;
+      margin: 2em auto;
+      color: rgb(182, 179, 179);
+      font-weight: 600;
+      span {
         font-size: 17px;
-        margin: 0 5px;
+        &:nth-child(2) {
+          margin: 0 15px;
+        }
+        &:nth-child(4) {
+          transform: translateY(4px);
+          font-size: 17px;
+          margin: 0 5px;
+        }
       }
     }
-  }
 
-  &__destination {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    margin: 0 auto;
-    padding-top: 3em;
-    span {
-      transform: translateY(2px);
-      margin-right: 5px;
+    &__destination {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin: 0 auto;
+      padding-top: 3em;
+      span {
+        transform: translateY(2px);
+        margin-right: 5px;
+      }
     }
   }
 }

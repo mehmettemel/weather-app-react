@@ -1,5 +1,156 @@
+@import '../../styles/breakpoints.scss';
 .main {
+  width: 80%;
+  margin: 0 auto;
   display: block;
   position: relative;
   z-index: 3;
+  height: 100vh;
+  @include media('<=tablet') {
+    padding: 2em 1em;
+  }
+  &__weathersList {
+    padding: 2em 1em;
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  &__weathersListItem {
+    min-width: 150px;
+    @include media('<=tablet') {
+      min-width: 100%;
+    }
+    min-height: 220px;
+    background-color: #1e213a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    & > span {
+      color: rgb(212, 212, 212);
+    }
+  }
+
+  &__degrees {
+    span {
+      font-weight: 600;
+      margin: 0 10px;
+      &:nth-child(2) {
+        color: rgb(175, 174, 174);
+        font-weight: 200;
+      }
+    }
+  }
+
+  &__detailsTitle {
+    text-align: center;
+    font-weight: 900;
+    padding: 0 1em;
+    margin-bottom: 1em;
+  }
+  &__details {
+    padding: 0 1em;
+    padding-bottom: 2em;
+    display: grid;
+    grid-gap: 2em 1em;
+    grid-template-columns: repeat(auto-fill, minmax(238px, 520px));
+    grid-template-rows: 1fr 1fr;
+    align-items: start;
+    justify-content: center;
+    // grid-template-rows: 100px 1fr 1fr;
+    h3 {
+      padding-top: 1em;
+    }
+    &--wind {
+      background-color: #1e213a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 250px;
+
+      .windDegree {
+        display: flex;
+        align-items: center;
+        margin: 1em 0;
+        h2 {
+          font-size: 4rem;
+        }
+        span {
+          margin-left: 10px;
+          font-size: 2.2rem;
+          font-weight: 500;
+        }
+      }
+
+      .windIcon {
+        padding-bottom: 2em;
+      }
+    }
+    &--humidity {
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #1e213a;
+
+      .humidityDegree {
+        margin: 1em 0;
+        h2 {
+          font-size: 4rem;
+          text-align: center;
+
+          span {
+            margin-left: 10px;
+            font-size: 2.2rem;
+            font-weight: 500;
+          }
+        }
+      }
+      .progress {
+        padding-bottom: 2em;
+        width: 80%;
+        .number {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-bottom: 0.3em;
+          span {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    &--windRotation {
+      padding-bottom: 1em;
+      min-height: 150px;
+      background-color: #1e213a;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      .windRotate {
+        transform-origin: center;
+      }
+    }
+    &--air {
+      padding-bottom: 1em;
+      min-height: 150px;
+      background-color: #1e213a;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+
+      .pressureDegree {
+        font-size: 4rem;
+        span {
+          font-size: 2.2rem;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
 }
