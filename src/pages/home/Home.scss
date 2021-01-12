@@ -9,4 +9,32 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
+
+  .switch {
+    z-index: 5;
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    display: flex;
+    .circle {
+      display: grid;
+      place-items: center;
+      margin: 0 10px;
+      width: 40px;
+      height: 40px;
+      background-color: #585676;
+      color: #1e213a;
+      font-weight: 800;
+      font-size: 1.2rem;
+      border-radius: 100%;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      &:hover {
+        background-color: #9897a5;
+      }
+      &.active {
+        background-color: #e7e7eb;
+      }
+    }
+  }
 }

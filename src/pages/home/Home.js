@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Main from '../../components/main/Main'
 import Side from '../../components/side/Side'
+import { Button } from 'antd'
 import './Home.scss'
 
 function Home() {
@@ -36,6 +37,7 @@ function Home() {
     currentMonth: months[newDate.getMonth()],
     currentMonthNumber: newDate.getDate(),
   })
+  const [fahrenheit, setFahrenheit] = useState(false)
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -46,29 +48,62 @@ function Home() {
         })
       })
 
-      fetch(
-        `http://api.openweathermap.org/data/2.5/weather?lat=${location.Lat}&lon=${location.Long}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
-      )
-        .then((resp) => resp.json())
-        .then((weather) =>
-          setData({
-            name: weather.name,
-            temp: weather.main.temp,
-            icon: weather.weather[0].icon,
-            description: weather.weather[0].description,
-            windSpeed: weather.wind.speed,
-            windDegree: weather.wind.deg,
-            humidity: weather.main.humidity,
-            airPressure: weather.main.pressure,
-          })
+      if (fahrenheit === true) {
+        fetch(
+          `http://api.openweathermap.org/data/2.5/weather?lat=${location.Lat}&lon=${location.Long}&units=imperial&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
         )
+          .then((resp) => resp.json())
+          .then((weather) =>
+            setData({
+              name: weather.name,
+              temp: weather.main.temp,
+              icon: weather.weather[0].icon,
+              description: weather.weather[0].description,
+              windSpeed: weather.wind.speed,
+              windDegree: weather.wind.deg,
+              humidity: weather.main.humidity,
+              airPressure: weather.main.pressure,
+            })
+          )
+      } else {
+        fetch(
+          `http://api.openweathermap.org/data/2.5/weather?lat=${location.Lat}&lon=${location.Long}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+        )
+          .then((resp) => resp.json())
+          .then((weather) =>
+            setData({
+              name: weather.name,
+              temp: weather.main.temp,
+              icon: weather.weather[0].icon,
+              description: weather.weather[0].description,
+              windSpeed: weather.wind.speed,
+              windDegree: weather.wind.deg,
+              humidity: weather.main.humidity,
+              airPressure: weather.main.pressure,
+            })
+          )
+      }
     }
-  }, [location.Long, location.Lat])
+  }, [location.Long, location.Lat, fahrenheit])
   console.log('wind', data)
   return (
     <div className='home'>
-      <Side data={data} date={date} />
-      <Main location={location} data={data} />
+      <div className='switch'>
+        <div
+          onClick={() => setFahrenheit(false)}
+          className={`circle ${fahrenheit ? '' : 'active'}`}
+        >
+          °C
+        </div>
+        <div
+          onClick={() => setFahrenheit(true)}
+          className={`circle ${fahrenheit ? 'active' : ''}`}
+        >
+          °F
+        </div>
+      </div>
+      <Side data={data} date={date} fahrenheit={fahrenheit} />
+      <Main location={location} data={data} fahrenheit={fahrenheit} />
     </div>
   )
 }

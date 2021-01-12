@@ -6,7 +6,7 @@ import './Main.scss'
 import { Progress } from 'antd'
 import { IoMdNavigate } from 'react-icons/io'
 
-function Main({ location, data }) {
+function Main({ location, data, fahrenheit }) {
   const [weathers, setWeathers] = useState({
     daily: [],
   })
@@ -19,6 +19,18 @@ function Main({ location, data }) {
   }
   useEffect(() => {
     if (navigator.geolocation) {
+      if (fahrenheit === true) {
+        axios(
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${location.Lat}&lon=${location.Long}&units=imperial&exclude=minutely,hourly,current&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+        ).then((res) => {
+          const weathers = res.data
+          setWeathers({
+            daily: weathers.daily,
+            visibility: weathers,
+          })
+          console.log(weathers)
+        })
+      }
       axios(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${location.Lat}&lon=${location.Long}&units=metric&exclude=minutely,hourly,current&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
       ).then((res) => {
@@ -30,7 +42,7 @@ function Main({ location, data }) {
         console.log(weathers)
       })
     }
-  }, [location.Lat, location.Long])
+  }, [location.Lat, location.Long, fahrenheit])
   console.log('HALLO', weathers)
   iconUrl()
   return (
@@ -41,13 +53,19 @@ function Main({ location, data }) {
             <span>{date(weather.dt)}</span>
             <img src={iconUrl(weather.weather[0].icon)}></img>
             <div className='main__degrees'>
-              <span>{parseInt(weather.temp.day)}°C</span>
-              <span>{parseInt(weather.temp.night)}°C</span>
+              <span>
+                {parseInt(weather.temp.day)}
+                {fahrenheit ? '°F' : '°C'}
+              </span>
+              <span>
+                {parseInt(weather.temp.night)}
+                {fahrenheit ? '°F' : '°C'}
+              </span>
             </div>
           </li>
         ))}
       </ul>
-      <h2 className='main__detailsTitle'>Today's Hightlights</h2>
+      <h2 className='main__detailsTitle'>Today's Highlights</h2>
       <div className='main__details'>
         <div className='main__details--wind'>
           <h3>Wind Status</h3>

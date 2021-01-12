@@ -3,7 +3,7 @@ import { HiLocationMarker } from 'react-icons/hi'
 
 import iconUrl from '../../functions/iconUrl'
 
-function Side({ date, data }) {
+function Side({ date, data, fahrenheit }) {
   const iconUrls = iconUrl(data.icon)
 
   return (
@@ -14,7 +14,7 @@ function Side({ date, data }) {
         <div className='sideInfo'>
           <div className='sideInfo__temperature'>
             <h2>{parseInt(data.temp)}</h2>
-            <span>°C</span>
+            <span>{fahrenheit ? '°F' : '°C'}</span>
           </div>
 
           <div className='sideInfo__description'>
